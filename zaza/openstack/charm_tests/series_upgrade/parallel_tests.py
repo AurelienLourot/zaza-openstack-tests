@@ -101,6 +101,10 @@ class ParallelSeriesUpgradeTest(unittest.TestCase):
             # unstable if all the applications are done at the same time.
             sem = asyncio.Semaphore(4)
             for charm_name in apps:
+                if ('percona' in charm_name or 'ceph' in charm_name or
+                        'rabbit' in charm_name or 'gnocchi' in charm_name):
+                    logging.warn('LA_TEMP skipping {}'.format(charm_name))
+                    continue
                 charm = applications[charm_name]['charm']
                 name = upgrade_utils.extract_charm_name_from_url(charm)
                 upgrade_config = parallel_series_upgrade.app_config(name)
