@@ -642,5 +642,12 @@ async def async_do_release_upgrade(machine):
         'yes | sudo DEBIAN_FRONTEND=noninteractive '
         'do-release-upgrade -f DistUpgradeViewNonInteractive')
 
-    await model.async_run_on_machine(
-        machine, do_release_upgrade_cmd, timeout="120m")
+    try:
+        await model.async_run_on_machine(
+            machine, do_release_upgrade_cmd, timeout="120m")
+    except subprocess.CalledProcessError as error:
+        logging.error("LA_TEMP do-release-upgrade failed")
+        logging.error("LA_TEMP returncode={}".format(error.returncode))
+        logging.error("LA_TEMP stdout={}".format(error.stdout))
+        logging.error("LA_TEMP stderr={}".format(error.stderr))
+        raise
