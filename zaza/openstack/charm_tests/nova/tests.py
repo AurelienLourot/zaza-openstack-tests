@@ -61,7 +61,8 @@ class LTSGuestCreateTest(test_utils.OpenStackBaseTest):
         """Launch a Bionic instance and test connectivity."""
         self.RESOURCE_PREFIX = 'zaza-nova'
         self.launch_guest(
-            'ubuntu', instance_key=glance_setup.LTS_IMAGE_NAME)
+            'ubuntu', instance_key=glance_setup.LTS_IMAGE_NAME,
+            hypervisor_hostname='LA_TEMP')
 
     def tearDown(self):
         """Cleanup of VM guests."""

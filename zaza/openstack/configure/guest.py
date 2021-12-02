@@ -48,7 +48,7 @@ boot_tests = {
 def launch_instance(instance_key, use_boot_volume=False, vm_name=None,
                     private_network_name=None, image_name=None,
                     flavor_name=None, external_network_name=None, meta=None,
-                    userdata=None):
+                    userdata=None, hypervisor_hostname=None):
     """Launch an instance.
 
     :param instance_key: Key to collect associated config data with.
@@ -117,7 +117,8 @@ def launch_instance(instance_key, use_boot_volume=False, vm_name=None,
         key_name=nova_utils.KEYPAIR_NAME,
         meta=meta,
         nics=nics,
-        userdata=userdata)
+        userdata=userdata,
+        hypervisor_hostname=hypervisor_hostname)
 
     # Test Instance is ready.
     logging.info('Checking instance is active')
