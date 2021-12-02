@@ -60,9 +60,13 @@ class LTSGuestCreateTest(test_utils.OpenStackBaseTest):
     def test_launch_small_instance(self):
         """Launch a Bionic instance and test connectivity."""
         self.RESOURCE_PREFIX = 'zaza-nova'
-        self.launch_guest(
-            'ubuntu', instance_key=glance_setup.LTS_IMAGE_NAME,
-            hypervisor_hostname='LA_TEMP')
+
+        for i in ['15', '16', '17']:
+            guest_name = 'ubuntu-{}'.format(i)
+            hypervisor_hostname = 'juju-40616c-zaza-f9260a5d8c20-{}.project.serverstack'.format(i)
+            self.launch_guest(
+                guest_name, instance_key=glance_setup.LTS_IMAGE_NAME,
+                hypervisor_hostname=hypervisor_hostname)
 
     def tearDown(self):
         """Cleanup of VM guests."""
