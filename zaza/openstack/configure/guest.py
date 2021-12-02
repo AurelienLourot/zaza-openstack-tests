@@ -75,7 +75,9 @@ def launch_instance(instance_key, use_boot_volume=False, vm_name=None,
     :rtype: novaclient.Server
     """
     keystone_session = openstack_utils.get_overcloud_keystone_session()
-    nova_client = openstack_utils.get_nova_session_client(keystone_session)
+    nova_client = openstack_utils.get_nova_session_client(
+        keystone_session,
+        version=2.74)  # LA_TEMP for hypervisor_hostname
     neutron_client = openstack_utils.get_neutron_session_client(
         keystone_session)
 
