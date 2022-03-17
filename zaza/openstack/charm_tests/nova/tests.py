@@ -693,6 +693,9 @@ class NovaComputeNvidiaVgpuWithHardwareTest(test_utils.OpenStackBaseTest):
             '--property trait:{}=required')
         command = command.format(openstack_utils.get_cli_auth_args(
             self.keystone_client), flavor_name, self.trait_name)
+        juju_utils.remote_run(
+            self._get_vgpu_unit_names()[0], remote_cmd=command, timeout=180,
+            fatal=True)
 
 
 class NovaCloudControllerActionTest(test_utils.OpenStackBaseTest):
