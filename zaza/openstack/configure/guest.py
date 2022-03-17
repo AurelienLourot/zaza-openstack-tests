@@ -135,6 +135,7 @@ def launch_instance(instance_key, use_boot_volume=False, vm_name=None,
         nova_client,
         instance.id,
         boot_tests[instance_key]['bootstring'])
+    return instance  # LA_TEMP
     port = openstack_utils.get_ports_from_device_id(
         neutron_client,
         instance.id)[0]
